@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     # new apps
     "users",
     "habits",
+    "rest_framework",
+    "rest_framework_simplejwt",
 ]
 
 MIDDLEWARE = [
