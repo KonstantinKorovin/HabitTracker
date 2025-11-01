@@ -26,4 +26,5 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # my apps #
     path("users/", include("users.urls")),
+    path("habits/", include("habits.urls")),
 ]
