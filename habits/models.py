@@ -13,10 +13,11 @@ class Habit(models.Model):
     place = models.CharField(verbose_name="Место выполнения привычки")
     period = models.TimeField(verbose_name="Время когда необходимо выполнять привычку")
     action = models.CharField(
-        verbose_name="Действие которое представляет из себя привычка"
+        verbose_name="Действие которое представляет из себя привычка",
     )
     is_pleasant_habit = models.BooleanField(
-        verbose_name="Признак приятной привычки", default=True
+        verbose_name="Признак приятной привычки",
+        default=True,
     )
     related_habit = models.ForeignKey(
         to="self",
@@ -32,10 +33,12 @@ class Habit(models.Model):
     )
     reward = models.CharField(verbose_name="Награда за выполнение полезной привычки")
     time_to_complete = models.DurationField(
-        verbose_name="Время на выполнение привычки", default=timedelta(seconds=120)
+        verbose_name="Время на выполнение привычки",
+        default=timedelta(seconds=120),
     )
     is_published = models.BooleanField(
-        verbose_name="Статус публикации привычки", default=False
+        verbose_name="Статус публикации привычки",
+        default=False,
     )
 
     def __str__(self):
