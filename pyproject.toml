@@ -19,6 +19,7 @@ celery = "^5.5.3"
 redis = "^7.0.1"
 requests = "^2.32.5"
 django-celery-beat = "^2.8.1"
+django-cors-headers = "^4.9.0"
 
 
 [tool.poetry.group.lint.dependencies]
