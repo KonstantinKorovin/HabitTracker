@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "django_celery_beat",
     "corsheaders",
+    "drf_yasg"
 ]
 
 MIDDLEWARE = [
@@ -165,14 +166,12 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-CORS_ALLOWED_ORIGINS = [
-    '<http://localhost:8000>',
-    "https://read-and-write.example.com",
+CORS_ALLOW_ALL_ORIGINS = True
 
-]
+CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://read-and-write.example.com",
+    "http://localhost:8000",       # Ваш локальный фронтенд
+    "http://127.0.0.1:8000",
+    "https://read-and-write.example.com", # И ваш продакшен-домен
 ]
-
-CORS_ALLOW_ALL_ORIGINS = False
