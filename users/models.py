@@ -14,6 +14,7 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = [
         "username",
     ]
+    tg_chat_id = models.CharField(max_length=50, verbose_name="Телеграм chat-id")
 
     def __str__(self):
         return self.email

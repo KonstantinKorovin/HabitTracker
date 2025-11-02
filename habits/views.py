@@ -39,6 +39,9 @@ class HabitUpdateView(generics.UpdateAPIView):
     serializer_class = HabitSerializer
     permission_classes = [IsAuthenticated, MyHabitPermission]
 
+    def update(self, request, *args, **kwargs):
+        pass
+
 
 class HabitRetrieveView(generics.RetrieveAPIView):
     queryset = Habit.objects.all()

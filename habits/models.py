@@ -40,6 +40,11 @@ class Habit(models.Model):
         verbose_name="Статус публикации привычки",
         default=False,
     )
+    last_sent_date = models.DateField(
+        verbose_name="Дата последнего напоминания",
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return f"я буду {self.action} в {self.period.strftime("%H:%M")} в {self.place}"
