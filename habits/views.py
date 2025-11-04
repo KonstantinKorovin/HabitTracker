@@ -1,4 +1,4 @@
-from rest_framework import generics, permissions
+from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from habits.models import Habit
@@ -38,9 +38,6 @@ class HabitUpdateView(generics.UpdateAPIView):
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
     permission_classes = [IsAuthenticated, MyHabitPermission]
-
-    def update(self, request, *args, **kwargs):
-        pass
 
 
 class HabitRetrieveView(generics.RetrieveAPIView):

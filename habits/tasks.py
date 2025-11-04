@@ -33,8 +33,8 @@ def schedule_all_habits():
             reminder_time = datetime.combine(today, habit.period)
 
             if reminder_time > datetime.now():
-                send_habit_reminder.apply_asinc(
-                    args=["habit.id"],
+                send_habit_reminder.apply_async(
+                    args=(habit.id,),
                     eta=reminder_time,
                 )
 

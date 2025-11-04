@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from rest_framework import serializers, validators
+from rest_framework import serializers
 
 from habits.models import Habit
 
@@ -20,7 +20,7 @@ class HabitSerializer(serializers.ModelSerializer):
         has_related_habit = bool(related_habit)
 
         if has_reward and has_related_habit:
-            raise validators.ValidationError(
+            raise serializers.ValidationError(
                 {
                     "non_field_errors": "Нельзя одновременно указывать связанную привычку и вознаграждение."
                     "\nВыберите что-то одно."
@@ -45,7 +45,7 @@ class HabitSerializer(serializers.ModelSerializer):
 
         if related_habit is not None:
             if not related_habit.is_pleasant_habit:
-                raise validators.ValidationError(
+                raise serializers.ValidationError(
                     {
                         "В связанные привычки могут попадать только привычки с признаком 'приятная привычка'."
                     }

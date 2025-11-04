@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "django_celery_beat",
     "corsheaders",
-    "drf_yasg"
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -159,10 +159,10 @@ TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 CELERY_BROKER_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}"
 
 CELERY_BEAT_SCHEDULE = {
-    'schedule-all-habits-daily': {
-        'task': 'habits.tasks.schedule_all_habits',
-        'schedule': crontab(minute=0, hour=0),
-        'args': (),
+    "schedule-all-habits-daily": {
+        "task": "habits.tasks.schedule_all_habits",
+        "schedule": crontab(minute=0, hour=0),
+        "args": (),
     },
 }
 
@@ -171,7 +171,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000",       # Ваш локальный фронтенд
+    "http://localhost:8000",  # Ваш локальный фронтенд
     "http://127.0.0.1:8000",
-    "https://read-and-write.example.com", # И ваш продакшен-домен
+    "https://read-and-write.example.com",  # И ваш продакшен-домен
 ]

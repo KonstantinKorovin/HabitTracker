@@ -1,3 +1,7 @@
-from django.test import TestCase
+from rest_framework import test
 
-# Create your tests here.
+
+class HabitApiTestCases(test.APITestCase):
+
+    def setUp(self):
+        pass
