@@ -47,7 +47,9 @@ class HabitSerializer(serializers.ModelSerializer):
             if not related_habit.is_pleasant_habit:
                 raise serializers.ValidationError(
                     {
-                        "В связанные привычки могут попадать только привычки с признаком 'приятная привычка'."
+                        "non_field_errors": [
+                            "В связанные привычки могут попадать только привычки с признаком 'приятная привычка'."
+                        ]
                     }
                 )
 

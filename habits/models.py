@@ -31,7 +31,9 @@ class Habit(models.Model):
         verbose_name="Периодичность выполнения привычки",
         default=1,
     )
-    reward = models.CharField(verbose_name="Награда за выполнение полезной привычки")
+    reward = models.CharField(
+        verbose_name="Награда за выполнение полезной привычки", blank=True, null=True
+    )
     time_to_complete = models.DurationField(
         verbose_name="Время на выполнение привычки",
         default=timedelta(seconds=120),
