@@ -4,7 +4,7 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     email = models.EmailField(
-        max_length=35, verbose_name="E-mail пользователя", unique=True
+        max_length=254, verbose_name="E-mail пользователя", unique=True
     )
     phone_number = models.CharField(
         max_length=20, verbose_name="Номер телефона", unique=True, blank=True, null=True
@@ -14,6 +14,9 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = [
         "username",
     ]
+    tg_chat_id = models.CharField(
+        max_length=50, verbose_name="Телеграм chat-id", blank=True, null=True
+    )
 
     def __str__(self):
         return self.email
