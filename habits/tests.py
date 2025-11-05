@@ -1,12 +1,12 @@
-from datetime import time, timedelta, date
+from datetime import date, time, timedelta
 from unittest.mock import patch
 
 from django.test import TestCase
-from rest_framework import test, status
+from rest_framework import status, test
 
 from habits.models import Habit
 from habits.serializers import HabitSerializer
-from habits.tasks import send_habit_reminder, TELEGRAM_URL, schedule_all_habits
+from habits.tasks import TELEGRAM_URL, schedule_all_habits, send_habit_reminder
 from users.models import CustomUser
 
 
@@ -187,22 +187,22 @@ class HabitApiView(test.APITestCase):
             place="дома",
             period="12:00",
             action="пить воду",
-            is_published=False
+            is_published=False,
         )
         self.published_habit = Habit.objects.create(
             user=self.other_user,
             place="парк",
             period="13:00",
             action="бегать",
-            is_published=True
+            is_published=True,
         )
 
     def test_create_habit(self):
         data = {
             "place": "Офис",
-            "period": time(12,0, 0),
+            "period": time(12, 0, 0),
             "action": "Сдать отчеты",
-            "reward": "Кофе"
+            "reward": "Кофе",
         }
         response = self.client.post("/habits/create/habit/", data=data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -223,7 +223,9 @@ class HabitApiView(test.APITestCase):
 
     def test_update_my_habit(self):
         data = {"action": "Новое действие"}
-        response = self.client.patch(f"/habits/update/{self.my_habit.id}/habit/", data=data)
+        response = self.client.patch(
+            f"/habits/update/{self.my_habit.id}/habit/", data=data
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["action"], "Новое действие")
 
@@ -237,11 +239,15 @@ class HabitApiView(test.APITestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_cannot_update_others(self):
-        response = self.client.patch(f"/habits/update/{self.published_habit.id}/habit/", data={})
+        response = self.client.patch(
+            f"/habits/update/{self.published_habit.id}/habit/", data={}
+        )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_cannot_delete_others(self):
-        response = self.client.delete(f"/habits/habit/{self.published_habit.id}/destroy/")
+        response = self.client.delete(
+            f"/habits/habit/{self.published_habit.id}/destroy/"
+        )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
@@ -257,15 +263,14 @@ class HabitTaskTests(test.APITestCase):
         self.my_habit = Habit.objects.create(
             user=self.user,
             place="дома",
-            period=time(12, 0,0),
+            period=time(12, 0, 0),
             action="пить воду",
             is_published=False,
             is_pleasant_habit=True,
             periodicity=1,
         )
 
-    @patch('habits.tasks.requests.post')
-
+    @patch("habits.tasks.requests.post")
     def test_send_reminder_success(self, mock_requests_post):
 
         mock_requests_post.return_value.status_code = 200
@@ -279,12 +284,13 @@ class HabitTaskTests(test.APITestCase):
         expected_message = (
             f"НАПОМИНАНИЕ О ПРИВЫЧКЕ: {self.my_habit.action}\n\n"
             f"МЕСТО: {self.my_habit.place}\n"
-            f"ВРЕМЯ: {self.my_habit.period.strftime("%H:%M")}")
+            f"ВРЕМЯ: {self.my_habit.period.strftime("%H:%M")}"
+        )
 
         expected_payload = {
             "chat_id": "12345",
             "text": expected_message,
-            "parse_mode": "HTML"
+            "parse_mode": "HTML",
         }
 
         mock_requests_post.assert_called_with(
